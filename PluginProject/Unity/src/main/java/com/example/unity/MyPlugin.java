@@ -1,5 +1,7 @@
 package com.example.unity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 public class MyPlugin {
@@ -8,21 +10,18 @@ public class MyPlugin {
     private static final String LOGTAG = "AltGras";
 
     public static MyPlugin getInstance() { return ourInstance; }
+    public static BroadcastSender mainActivity;
+    public float surfaceArea ;
 
-    public float surfaceArea = 10.0f;
-    private long startTime;
     private MyPlugin() {
+        mainActivity = new BroadcastSender();
         Log.i(LOGTAG, "Created MyPlugin");
-        startTime = System.currentTimeMillis();
     }
 
-    public double getElapsedTime()
+    public void printText(float num)
     {
-        return (System.currentTimeMillis()-startTime)/1000.0f;
-    }
-
-    public void printText(String s)
-    {
-        System.out.println("Text from Unity: "+s);
+        surfaceArea = num;
+        System.out.println("printText: Text from Unity: "+num);
+        mainActivity.SendBroadcast(num);
     }
 }
